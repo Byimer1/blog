@@ -2,6 +2,7 @@ from typing import Any, Dict
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
 from .models import Article
 
 
@@ -9,6 +10,12 @@ class Index (ListView):
     model = Article
     queryset = Article.objects.all().order_by('-date')
     template_name = 'blog/index.html'
+    paginate_by = 1
+
+class Featured (ListView):
+    model = Article
+    queryset = Article.objects.filter(featured=True).order_by('-date')
+    template_name = 'blog/featured.html'
     paginate_by = 1
 
 class DetailArticleView(DetailView):
@@ -36,6 +43,11 @@ class LikeArticle(View):
         
         article.save()
         return redirect('detail_article', pk)
+    
+class DeleteArticleView(DetailView):
+    model = Article
+    template_name = 'blog/blog_delete.html'
+    success_url = reverse_lazy('index')
 
   
 
