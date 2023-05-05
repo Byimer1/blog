@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'blog',
     'users',
+    'tinymce',
     'crispy_forms',
     "crispy_bootstrap5",
     'django.contrib.admin',
@@ -127,6 +128,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'index'
+
+LOGIN_URL = 'login'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 
