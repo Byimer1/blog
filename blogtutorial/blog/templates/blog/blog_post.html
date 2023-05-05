@@ -56,7 +56,7 @@
             {% endif %}
 
         {% else %}
-            <button class="btn btn-outline-primary" > Login to like this post</button>
+            <a class="btn btn-outline-primary" href="{% url 'login' %}">Log in to like this post</a>
         {% endif %}
 
     </div>
