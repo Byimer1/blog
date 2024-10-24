@@ -15,3 +15,12 @@ class Article(models.Model):
 
 
 # Create your models here.
+
+class NewsArticle(models.Model):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    published_date = models.DateTimeField()
+    source = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title

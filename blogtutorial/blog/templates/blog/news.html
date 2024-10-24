@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %} {% block content %}
+<h1>Latest News</h1>
+<ul>
+    {% for article in news_articles %}
+    <li>
+        <h2>{{ article.title }}</h2>
+        <p>{{ article.content }}</p>
+        <p><small>Source: {{ article.source }} | Published: {{ article.published_date }}</small></p>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

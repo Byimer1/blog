@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import Index, DetailArticleView, LikeArticle, Featured, DeleteArticleView
+from .views import Index, DetailArticleView, LikeArticle, Featured, DeleteArticleView, NewsListView
 
 urlpatterns = [
     path('', Index.as_view(), name = 'index'),
@@ -7,6 +7,6 @@ urlpatterns = [
     path('<int:pk>/', DetailArticleView.as_view(), name = 'detail_article'),
     path('<int:pk>/like', LikeArticle.as_view(), name='like_article'),
     path('featured/', Featured.as_view(), name='featured'),
-    path('<int:pk>/delete', DeleteArticleView.as_view(), name='delete_article')
-
+    path('<int:pk>/delete', DeleteArticleView.as_view(), name='delete_article'),
+    path('news/', NewsListView.as_view(), name='news'),
 ]

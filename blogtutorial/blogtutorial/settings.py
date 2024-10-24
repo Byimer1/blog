@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from django_celery_beat.models import PeriodicTask, IntervalSchedule
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +136,19 @@ LOGIN_URL = 'login'
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+# Create an interval schedule (e.g., every day)
+schedule, created = IntervalSchedule.objects.get_or_create(
+    every=1,
+    period=IntervalSchedule.DAYS,
+)
+
+# Create the periodic task
+PeriodicTask.objects.create(
+    interval=schedule,
+    name='Fetch News Every Day',
+    task='blog.tasks.fetch_news',
+)

@@ -4,7 +4,7 @@ from django.views import View
 from django.views.generic import ListView, DetailView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Article
+from .models import Article, NewsArticle
 
 
 class Index (ListView):
@@ -57,3 +57,12 @@ class DeleteArticleView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 # Create your views here.
+
+class NewsListView(ListView):
+    model = NewsArticle
+    template_name = 'blog/news.html'
+    context_object_name = 'news_articles'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return NewsArticle.objects.all().order_by('-published_date')[:10]
